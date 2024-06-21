@@ -5,7 +5,6 @@ import tkinter as tk
 import datetime
 from pynput import mouse
 from typing import Tuple, Dict
-import numpy as np
 
 Position = Tuple[int, int]
 Size = Tuple[int, int]
@@ -136,13 +135,11 @@ class ClickTracker(tk.BooleanVar):
 
     def track(self, x: int, y: int):
         if self.get():
-            print(self.color)
-            print(type(self.color))
             self.cache.ellipse(x, y, color=self.color)
             self.draw_point_on_canvas(x, y, color=Color_dict.get(self.color))
 
 
-    def draw_point_on_canvas(self, x, y, color, size=5):
+    def draw_point_on_canvas(self, x, y, color, size=10):
         x1 = x - size
         y1 = y - size
         x2 = x + size
@@ -199,7 +196,7 @@ class App(tk.Tk):
         super(App, self).__init__()
 
         self.title("Mouse Tracker")
-        self.geometry("1280x1080")
+        self.geometry("1920x1080")
 
         self.start_button = Button(self, text="Start Tracking", command=self.start_tracking)
 
@@ -213,7 +210,7 @@ class App(tk.Tk):
             size=(self.winfo_screenwidth(), self.winfo_screenheight())
         )
 
-        self.canvas = tk.Canvas(self, width=self.winfo_screenwidth(), height=self.winfo_screenheight(), bg="black")
+        self.canvas = tk.Canvas(self, width=Canvas_Width, height=Canvas_Width, bg="black")
         self.canvas.pack()
 
         self.trackers = Trackers(
